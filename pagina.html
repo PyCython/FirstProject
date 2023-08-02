@@ -84,25 +84,22 @@
                 resultado = `Perdiste, Fernando eligió: ${fernando}. Me debes una salida c:.`;
             }
 
-              // Mostrar el resultado y deshabilitar los botones
-              document.getElementById('juego').style.display = 'none';
-            document.getElementById('resultado').textContent = resultado;
+            // Mostrar el resultado
+        document.getElementById('resultado').textContent = resultado;
 
-            // Guardar el indicador de que el juego ya se ha jugado en el localStorage
-            localStorage.setItem('juegoJugado', 'true');
-        }
+        // Guardar el indicador de que el juego ya se ha jugado en el localStorage
+        localStorage.setItem('juegoJugado', 'true');
 
-        // Verificar si el juego ya se ha jugado
-        window.onload = function() {
-            var juegoJugado = localStorage.getItem('juegoJugado');
-            if (juegoJugado === 'true') {
-                // Si el juego ya se ha jugado, deshabilitar los botones
-                var botones = document.querySelectorAll('#juego button');
-                for (var i = 0; i < botones.length; i++) {
-                    botones[i].disabled = true;
+        // Deshabilitar los botones después de que el juego se haya jugado por primera vez
+        var juegoJugado = localStorage.getItem('juegoJugado');
+        if (juegoJugado === 'true') {
+            var botones = document.querySelectorAll('#juego button');
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].disabled = true;
+            }
                 }
             }
-        }
+        
     </script>
 </body>
 </html>
