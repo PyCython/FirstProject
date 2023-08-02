@@ -60,37 +60,71 @@
         <p id="resultado"></p>
     </div>
 
-    <script>
-         function reproducirVideo() {
-            var video = document.querySelector('video');
-            video.play();
-         }
-        // Función para jugar el juego
-        function jugar(jugador) {
-            var opciones = ['piedra', 'papel', 'tijera'];
-            var fernando = opciones[Math.floor(Math.random() * opciones.length)];
+   <script>
+    function reproducirVideo() {
+        var video = document.querySelector('video');
+        video.play();
+    }
 
-            var resultado = '';
+    // Función para jugar el juego
+    function jugar(jugador) {
+        var opciones = ['piedra', 'papel', 'tijera'];
+        var fernando = opciones[Math.floor(Math.random() * opciones.length)];
 
-            if (jugador === fernando) {
-                resultado = 'Empate';
-            } else if (
-                (jugador === 'piedra' && fernando === 'tijera') ||
-                (jugador === 'papel' && fernando === 'piedra') ||
-                (jugador === 'tijera' && fernando === 'papel')
-            ) {
-                resultado = `¡Ganaste! Fernando eligió: ${fernando}.`;
-            } else {
-                resultado = `Perdiste, Fernando eligió: ${fernando}. Me debes una salida c:.`;
-            }
+        var resultado = '';
 
-            // Mostrar el resultado
+        if (jugador === fernando) {
+            resultado = 'Empate';
+        } else if (
+            (jugador === 'piedra' && fernando === 'tijera') ||
+            (jugador === 'papel' && fernando === 'piedra') ||
+            (jugador === 'tijera' && fernando === 'papel')
+        ) {
+            resultado = `¡Ganaste! Fernando eligió: ${fernando}.`;
+        } else {
+            resultado = `Perdiste, Fernando eligió: ${fernando}. Me debes una salida c:.`;
+        }
+
+        // Mostrar el resultado
         document.getElementById('resultado').textContent = resultado;
 
+        // Guardar el resultado en el localStorage
+        localStorage.setItem('resultado', resultado);
 
-                }
+        // Deshabilitar los botones después de que el juego se haya jugado por primera vez
+        var juegoJugado = localStorage.getItem('juegoJugado');
+        if (juegoJugado === 'true') {
+            var botones = document.querySelectorAll('#juego button');
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].disabled = true;
             }
-        
-    </script>
+        }
+
+        // Habilitar los botones nuevamente
+        var botones = document.querySelectorAll('#juego button');
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].disabled = false;
+        }
+
+        // Eliminar el indicador de que el juego ya se ha jugado en el localStorage
+        localStorage.removeItem('juegoJugado');
+    }
+
+    // Verificar si el juego ya se ha jugado
+    window.onload = function() {
+        var juegoJugado = localStorage.getItem('juegoJugado');
+        if (juegoJugado === 'true') {
+            // Si el juego ya se ha jugado, deshabilitar los botones
+            var botones = document.querySelectorAll('#juego button');
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].disabled = true;
+            }
+
+            // Mostrar el resultado guardado previamente
+            var resultadoGuardado = localStorage.getItem('resultado');
+            document.getElementById('resultado').textContent = resultadoGuardado;
+        }
+    }
+</script>
 </body>
 </html>
