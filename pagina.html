@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hola Luisi</title>
+    <style>
+        body {
+            margin: 20px;
+            color: black;
+            font-family: 'Monaco', monospace;
+            background-image: url("//img.freepik.com/vector-gratis/fondo-pintura-al-oleo-acuarela_52683-107031.jpg?w=2000");
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            text-shadow: 2px 2px 4px white;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Estilos para el juego */
+        #juego {
+            margin-top: 20px;
+        }
+
+        #resultado {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: whitesmoke;">Hola Luisi</h1>
+
+    <!-- Contenido de la página principal -->
+
+    <!-- Mensaje y foto -->
+    <p>Xdón quería hacer uno mejor pero me puse a crear un nombre de programador y perdí mucho tiempo. Además, hice esta foto:</p>
+    <img src="Diseño sin título.jpg" alt="Imagen de la foto que colocarás tú">
+
+    <!-- Continuación del mensaje -->
+    <p>Más adelante te doy un regalo mucho mejor. Te dedico esta canción:</p>
+    
+     <div id="video">
+            <video width="853" height="480" controls>
+                <source src="sólo gente con cultura conoce esta joya 😎.mp4" type="video/mp4"> <!-- Reemplaza "ruta_del_video.mp4" con la ruta de tu video -->
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+    </div>
+
+    <div></div>
+
+    <!-- Juego de Piedra, Papel o Tijera -->
+    <div id="juego">
+        <h2>¡Juguemos a Piedra, Papel o Tijera contra Fernando!</h2>
+        <button onclick="jugar('piedra')" id="piedra">Piedra</button>
+        <button onclick="jugar('papel')" id="papel">Papel</button>
+        <button onclick="jugar('tijera')" id="tijera">Tijera</button>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+         function reproducirVideo() {
+            var video = document.querySelector('video');
+            video.play();
+         }
+        // Función para jugar el juego
+        function jugar(jugador) {
+            var opciones = ['piedra', 'papel', 'tijera'];
+            var fernando = opciones[Math.floor(Math.random() * opciones.length)];
+
+            var resultado = '';
+
+            if (jugador === fernando) {
+                resultado = 'Empate';
+            } else if (
+                (jugador === 'piedra' && fernando === 'tijera') ||
+                (jugador === 'papel' && fernando === 'piedra') ||
+                (jugador === 'tijera' && fernando === 'papel')
+            ) {
+                resultado = `¡Ganaste! Fernando eligió: ${fernando}.`;
+            } else {
+                resultado = `Perdiste, Fernando eligió: ${fernando}. Me debes una salida c:.`;
+            }
+
+              // Mostrar el resultado y deshabilitar los botones
+              document.getElementById('juego').style.display = 'none';
+            document.getElementById('resultado').textContent = resultado;
+
+            // Guardar el indicador de que el juego ya se ha jugado en el localStorage
+            localStorage.setItem('juegoJugado', 'true');
+        }
+
+        // Verificar si el juego ya se ha jugado
+        window.onload = function() {
+            var juegoJugado = localStorage.getItem('juegoJugado');
+            if (juegoJugado === 'true') {
+                // Si el juego ya se ha jugado, deshabilitar los botones
+                var botones = document.querySelectorAll('#juego button');
+                for (var i = 0; i < botones.length; i++) {
+                    botones[i].disabled = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
