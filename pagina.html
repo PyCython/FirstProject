@@ -87,16 +87,7 @@
             // Mostrar el resultado
         document.getElementById('resultado').textContent = resultado;
 
-        // Guardar el indicador de que el juego ya se ha jugado en el localStorage
-        localStorage.setItem('juegoJugado', 'true');
 
-        // Deshabilitar los botones después de que el juego se haya jugado por primera vez
-        var juegoJugado = localStorage.getItem('juegoJugado');
-        if (juegoJugado === 'true') {
-            var botones = document.querySelectorAll('#juego button');
-            for (var i = 0; i < botones.length; i++) {
-                botones[i].disabled = true;
-            }
                 }
             }
         
