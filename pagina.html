@@ -60,7 +60,7 @@
         <p id="resultado"></p>
     </div>
 
-   <script>
+  <script>
     function reproducirVideo() {
         var video = document.querySelector('video');
         video.play();
@@ -91,40 +91,26 @@
         // Guardar el resultado en el localStorage
         localStorage.setItem('resultado', resultado);
 
-        // Deshabilitar los botones después de que el juego se haya jugado por primera vez
-        var juegoJugado = localStorage.getItem('juegoJugado');
-        if (juegoJugado === 'true') {
-            var botones = document.querySelectorAll('#juego button');
-            for (var i = 0; i < botones.length; i++) {
-                botones[i].disabled = true;
-            }
-        }
-
-        // Habilitar los botones nuevamente
+        // Deshabilitar los botones después de jugar una vez
         var botones = document.querySelectorAll('#juego button');
         for (var i = 0; i < botones.length; i++) {
-            botones[i].disabled = false;
+            botones[i].disabled = true;
         }
 
-        // Eliminar el indicador de que el juego ya se ha jugado en el localStorage
-        localStorage.removeItem('juegoJugado');
+        // Guardar el indicador de que el juego ya se ha jugado en el localStorage
+        localStorage.setItem('juegoJugado', 'true');
     }
 
     // Verificar si el juego ya se ha jugado
     window.onload = function() {
         var juegoJugado = localStorage.getItem('juegoJugado');
         if (juegoJugado === 'true') {
-            // Si el juego ya se ha jugado, deshabilitar los botones
-            var botones = document.querySelectorAll('#juego button');
-            for (var i = 0; i < botones.length; i++) {
-                botones[i].disabled = true;
-            }
-
             // Mostrar el resultado guardado previamente
             var resultadoGuardado = localStorage.getItem('resultado');
             document.getElementById('resultado').textContent = resultadoGuardado;
         }
     }
 </script>
+
 </body>
 </html>
